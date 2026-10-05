@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install &mdash; pgpointcloud</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=36f53d34"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Getting Started" href="quickstart.html" />
+    <link rel="prev" title="Binary Formats" href="concepts/binary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pgPointcloud
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/index.html">Concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gnu-linux">GNU/Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macos">MacOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#releases-tarballs">Releases tarballs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sources">Sources</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="update.html">Update</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pgPointcloud</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Install</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="install">
+<span id="id1"></span><h1>Install<a class="headerlink" href="#install" title="Link to this heading"></a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#install" id="id2">Install</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gnu-linux" id="id3">GNU/Linux</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id4">Windows</a></p></li>
+<li><p><a class="reference internal" href="#macos" id="id5">MacOS</a></p></li>
+<li><p><a class="reference internal" href="#releases-tarballs" id="id6">Releases tarballs</a></p></li>
+<li><p><a class="reference internal" href="#sources" id="id7">Sources</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>An official Docker image is available on <a class="reference external" href="https://hub.docker.com/r/pgpointcloud/pointcloud">Docker Hub</a>. To retrieve the
+development version:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>pull<span class="w"> </span>pgpointcloud/pointcloud
+</pre></div>
+</div>
+<section id="gnu-linux">
+<h2>GNU/Linux<a class="headerlink" href="#gnu-linux" title="Link to this heading"></a></h2>
+<p><strong>Debian</strong></p>
+<p>Debian packages are now <a class="reference external" href="https://tracker.debian.org/pkg/pgpointcloud">available</a> on:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ubuntu 22.04</p></li>
+<li><p>Debian Testing</p></li>
+<li><p>Debian Unstable</p></li>
+<li><p>Raspbian Testing</p></li>
+</ul>
+</div></blockquote>
+<p><strong>AUR</strong></p>
+<p>pgPointcloud is available on Arch Linux through the <a class="reference external" href="https://aur.archlinux.org/packages/pgpointcloud">user repository</a>.</p>
+</section>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Link to this heading"></a></h2>
+<p>pgPointcloud is directly included in the <a class="reference external" href="https://postgis.net/windows_downloads/">PostGIS</a> bundle.</p>
+</section>
+<section id="macos">
+<h2>MacOS<a class="headerlink" href="#macos" title="Link to this heading"></a></h2>
+<p>pgpointcloud is available on macOS via <a class="reference external" href="https://ports.macports.org/port/pgpointcloud/">MacPorts</a>.</p>
+</section>
+<section id="releases-tarballs">
+<h2>Releases tarballs<a class="headerlink" href="#releases-tarballs" title="Link to this heading"></a></h2>
+<p><strong>Current Release</strong></p>
+<ul class="simple">
+<li><p><strong>19-09-2023</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.5.tar.gz">pointcloud-1.2.5.tar.gz</a> (<a class="reference external" href="https://github.com/pgpointcloud/pointcloud/blob/v1.2.5/NEWS">Release Notes</a>)</p></li>
+</ul>
+<p><strong>Past Releases</strong></p>
+<ul class="simple">
+<li><p><strong>26-09-2022</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.4.tar.gz">pointcloud-1.2.4.tar.gz</a></p></li>
+<li><p><strong>12-09-2022</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.3.tar.gz">pointcloud-1.2.3.tar.gz</a></p></li>
+<li><p><strong>10-05-2022</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.2.tar.gz">pointcloud-1.2.2.tar.gz</a></p></li>
+<li><p><strong>01-07-2020</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.1.tar.gz">pointcloud-1.2.1.tar.gz</a></p></li>
+<li><p><strong>22-08-2018</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.2.0.tar.gz">pointcloud-1.2.0.tar.gz</a></p></li>
+<li><p><strong>18-06-2018</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.1.1.tar.gz">pointcloud-1.1.1.tar.gz</a></p></li>
+<li><p><strong>30-04-2018</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.1.0.tar.gz">pointcloud-1.1.0.tar.gz</a></p></li>
+<li><p><strong>30-04-2018</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v1.0.1.tar.gz">pointcloud-1.0.1.tar.gz</a></p></li>
+<li><p><strong>23-10-2013</strong> <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/archive/v0.1.0.tar.gz">pointcloud-0.1.0.tar.gz</a></p></li>
+</ul>
+</section>
+<section id="sources">
+<span id="source"></span><h2>Sources<a class="headerlink" href="#sources" title="Link to this heading"></a></h2>
+<p>The source code repository for pgPointcloud is on <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/">GitHub</a>. You can retrieve
+the development version with <code class="docutils literal notranslate"><span class="pre">git</span></code>. See <a class="reference internal" href="development.html#build-sources"><span class="std std-ref">Build from sources</span></a> for
+instructions.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pgpointcloud/pointcloud/
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="concepts/binary.html" class="btn btn-neutral float-left" title="Binary Formats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+    <div class="footer">
+        <div class="container">
+            &copy;  2026
+            <a href="https://github.com/pramsey">Paul Ramsey</a>,
+            <a href="http://github.com/pblottiere">Paul Blottiere</a>,
+            <a href="http://github.com/mbredif">Mathieu Brédif</a>,
+            <a href="http://github.com/elemoine">Eric Lemoine</a>,
+            and
+            <a href="https://github.com/pgpointcloud/pointcloud/graphs/contributors">others</a>,
+        </div>
+    </div>
+     
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development &mdash; pgpointcloud</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=36f53d34"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Community" href="community.html" />
+    <link rel="prev" title="Schema and compression" href="tutorials/compression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pgPointcloud
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/index.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="update.html">Update</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-from-sources">Build from sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#write-a-loading-system">Write a loading system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-image">Docker Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release">Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#valgrind-memcheck">Valgrind memcheck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gdb-interactive-mode">GDB interactive mode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pgPointcloud</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development">
+<span id="development-index"></span><h1>Development<a class="headerlink" href="#development" title="Link to this heading"></a></h1>
+<p>Developer documentation with dependancies, build instructions, how to build a
+Docker image, update the documentation and run unit tests.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>PostgreSQL and PostgreSQL development packages must be installed (pg_config
+and server headers). For Red Hat and Ubuntu, the package names are usually
+<code class="docutils literal notranslate"><span class="pre">postgresql-dev</span></code> or <code class="docutils literal notranslate"><span class="pre">postgresql-devel</span></code></p></li>
+<li><p>LibXML2 development packages must be installed, usually <code class="docutils literal notranslate"><span class="pre">libxml2-dev</span></code> or
+<code class="docutils literal notranslate"><span class="pre">libxml2-devel</span></code></p></li>
+<li><p>CUnit packages must be installed</p></li>
+<li><p>[Optional] <code class="docutils literal notranslate"><span class="pre">laz-perf</span></code> library may be installed for LAZ compression support
+(see <a class="reference internal" href="#build-sources"><span class="std std-ref">Build from sources</span></a> instructions)</p></li>
+</ul>
+</section>
+<section id="build-from-sources">
+<span id="build-sources"></span><h2>Build from sources<a class="headerlink" href="#build-from-sources" title="Link to this heading"></a></h2>
+<p>After generating the configure script with <code class="docutils literal notranslate"><span class="pre">autogen.sh</span></code>, you can use
+<code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--help</span></code> to get a complete listing of configuration options.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./autogen.sh
+$<span class="w"> </span>./configure
+$<span class="w"> </span>make
+$<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">--with-pgconfig</span></code> on the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> command line if
+you have multiple PostgreSQL installations on your system and want to target a
+specific one. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./configure<span class="w"> </span>--with-pgconfig<span class="o">=</span>/usr/lib/postgresql/12/bin/pg_config
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">qsort_r</span></code> is not available on your system, then you can use the embedded
+implementation instead thanks to the next directive:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./configure<span class="w"> </span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-DNESTED_QSORT=1"</span>
+</pre></div>
+</div>
+</div>
+<p><strong>LAZ support</strong></p>
+<p>If you want to enable LAZ compression, you first need to build the <code class="docutils literal notranslate"><span class="pre">1.5.0</span></code>
+laz-perf library from sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hobuinc/laz-perf
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>laz-perf
+$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span><span class="m">1</span>.5.0
+$<span class="w"> </span>cmake<span class="w"> </span>.
+$<span class="w"> </span>make
+$<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>And then enable LAZ compression with <code class="docutils literal notranslate"><span class="pre">--with-lazperf</span></code> option on PgPointcloud side:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./configure --with-lazperf=/usr/local
+
+ PointCloud is now configured for
+
+-------------- Compiler Info -------------
+ C compiler:           gcc -g -O2
+ CXX compiler:         g++ -g -O2
+ SQL preprocessor:     /usr/bin/cpp -traditional-cpp -w -P
+
+-------------- Dependencies --------------
+ PostgreSQL config:    /usr/bin/pg_config
+ PostgreSQL version:   PostgreSQL 17.5 (170)
+ Libxml2 config:       /usr/bin/xml2-config
+ Libxml2 version:      2.14.3
+ LazPerf status:       /usr/local/include/laz-perf
+ CUnit status:         enabled
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Laz-perf <code class="docutils literal notranslate"><span class="pre">1.5.0</span></code> is outdated and some work is necessary to upgrade to
+<code class="docutils literal notranslate"><span class="pre">3.X</span></code> version.</p>
+</div>
+</section>
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Link to this heading"></a></h2>
+<p><strong>Unit tests</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>check
+</pre></div>
+</div>
+<p><strong>Regressions tests</strong></p>
+<p>pgPointcloud includes SQL tests to run against an existing installation. To run
+the SQL tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+$<span class="w"> </span><span class="nv">PGUSER</span><span class="o">=</span>a_user<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span>a_password<span class="w"> </span><span class="nv">PGHOST</span><span class="o">=</span>localhost<span class="w"> </span>make<span class="w"> </span>installcheck
+</pre></div>
+</div>
+<p>This command will create a database named <code class="docutils literal notranslate"><span class="pre">contrib_regression</span></code> and will execute
+the SQL scripts located in <code class="docutils literal notranslate"><span class="pre">pgsql/sql</span></code> in this database.</p>
+</section>
+<section id="write-a-loading-system">
+<h2>Write a loading system<a class="headerlink" href="#write-a-loading-system" title="Link to this heading"></a></h2>
+<p>If you are writing your own loading system and want to write into Pointcloud
+types, create well-known binary inputs, in uncompressed format. If your schema
+indicates that your patch storage is compressed, Pointcloud will automatically
+compress your patch before storing it, so you can create patches in
+uncompressed WKB without worrying about the nuances of particular internal
+compression schemes.</p>
+<p>The only issues to watch when creating WKB patches are: ensuring the data you
+write is sized according to the schema (use the specified dimension type);
+ensuring that the endianness of the data matches the declared endianness of the
+patch.</p>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<p>Sphinx is used to build the documentation. For that, you have to install the
+next Python packages:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx_rtd_theme</span></code></p></li>
+</ul>
+<p>Then:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>doc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>The HTML documentation is available in <code class="docutils literal notranslate"><span class="pre">doc/build/html</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The documentation can be generated in another format like pdf, epub, …
+You can use <code class="docutils literal notranslate"><span class="pre">make</span></code> to get a list of all available formats.</p>
+</div>
+</section>
+<section id="docker-image">
+<h2>Docker Image<a class="headerlink" href="#docker-image" title="Link to this heading"></a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> is provided in the <code class="docutils literal notranslate"><span class="pre">docker</span></code> directory and based on the
+official PostgreSQL docker image available <a class="reference external" href="https://hub.docker.com/_/postgres">DockerHub</a>. The image generated
+is based on PostgreSQL 14, PostGIS 3 and the laz-perf support is activated.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--rm<span class="w"> </span>-t<span class="w"> </span>pgpointcloud<span class="w"> </span>docker/
+</pre></div>
+</div>
+</section>
+<section id="continuous-integration">
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
+<p>pgPointcloud tests are run with <a class="reference external" href="https://github.com/pgpointcloud/pointcloud/actions">Github Actions</a>.</p>
+<p>The CI matrix below covers supported PostgreSQL and Ubuntu versions, with and without PostGIS. Each workflow builds the extension, runs the unit tests, generates the documentation, and performs C code formatting and SQL linting checks.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>w/o PostGIS</p></td>
+<td><p>PostGIS 3.3</p></td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL 14</p></td>
+<td><p><img alt="14_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres14_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+14+and+PostGIS+3.3%22" /></p>
+<p><img alt="14_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres14_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+14+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="14_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres14_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+14+and+PostGIS+3.3%22" /></p>
+<p><img alt="14_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres14_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+14+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL 15</p></td>
+<td><p><img alt="15_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres15_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+15+and+PostGIS+3.3%22" /></p>
+<p><img alt="15_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres15_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+15+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="15_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres15_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+15+and+PostGIS+3.3%22" /></p>
+<p><img alt="15_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres15_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+15+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL 16</p></td>
+<td><p><img alt="16_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres16_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+16+and+PostGIS+3.3%22" /></p>
+<p><img alt="16_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres16_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+16+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="16_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres16_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+16+and+PostGIS+3.3%22" /></p>
+<p><img alt="16_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres16_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+16+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL 17</p></td>
+<td><p><img alt="17_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres17_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+17+and+PostGIS+3.3%22" /></p>
+<p><img alt="17_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres17_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+17+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="17_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres17_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+17+and+PostGIS+3.3%22" /></p>
+<p><img alt="17_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres17_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+17+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL 18</p></td>
+<td><p><img alt="18_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres18_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+18+and+PostGIS+3.3%22" /></p>
+<p><img alt="18_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres18_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+18+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="18_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres18_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+18+and+PostGIS+3.3%22" /></p>
+<p><img alt="18_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres18_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+18+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL 19</p></td>
+<td><p><img alt="19_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres19_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+19+and+PostGIS+3.3%22" /></p>
+<p><img alt="19_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres19_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+19+and+PostGIS+3.3%22" /></p>
+</td>
+<td><p><img alt="19_33_jammy" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/jammy_postgres19_postgis33.yml?branch=master&amp;label=Ubuntu%2022.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-22.04%5D+PostgreSQL+19+and+PostGIS+3.3%22" /></p>
+<p><img alt="19_33_noble" src="https://img.shields.io/github/actions/workflow/status/pgpointcloud/pointcloud/noble_postgres19_postgis33.yml?branch=master&amp;label=Ubuntu%2024.04&amp;logo=ubuntu:target:https://github.com/pgpointcloud/pointcloud/actions?query=workflow%3A%22%5Bubuntu-24.04%5D+PostgreSQL+19+and+PostGIS+3.3%22" /></p>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="release">
+<h2>Release<a class="headerlink" href="#release" title="Link to this heading"></a></h2>
+<p>Steps for releasing a new version of Pointcloud:</p>
+<ol class="arabic simple">
+<li><p>Add a new section to the <code class="docutils literal notranslate"><span class="pre">NEWS</span></code> file, listing all the changes associated
+with the new release.</p></li>
+<li><p>Change the version number in the <code class="docutils literal notranslate"><span class="pre">README</span></code>, <code class="docutils literal notranslate"><span class="pre">Version.config</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pgsql/expected/pointcloud.out</span></code> files.</p></li>
+<li><p>Update the value of <code class="docutils literal notranslate"><span class="pre">UPGRADABLE</span></code> in <code class="docutils literal notranslate"><span class="pre">pgsql/Makefile.in</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pgsql_postgis/Makefile</span></code>. This variable defines the versions from which a
+database can be upgraded to the new Pointcloud version.</p></li>
+<li><p>Create a PR with these changes.</p></li>
+<li><p>When the PR is merged create a tag for the new release and push it to
+GitHub:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>vx.y.z<span class="w"> </span>-m<span class="w"> </span><span class="s1">'version x.y.z'</span>
+<span class="gp">$ </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>vx.y.z
+</pre></div>
+</div>
+</section>
+<section id="valgrind-memcheck">
+<h2>Valgrind memcheck<a class="headerlink" href="#valgrind-memcheck" title="Link to this heading"></a></h2>
+<p>For checking the memory management of pgPointcloud extension, <code class="docutils literal notranslate"><span class="pre">Valgrind</span></code> can
+be used with <code class="docutils literal notranslate"><span class="pre">PostgreSQL</span></code> in single-user mode.</p>
+<p>But first, it’s necessary to compile the extension with debug symbols and
+without compiler optimizations:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./configure<span class="w"> </span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-O0 -g"</span>
+<span class="gp">$ </span>make
+<span class="gp">$ </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Debug symbols may also be installed for PostgreSQL and PostGIS. For example
+for Debian based distributions with PostgreSQL 13 and PostGIS 3:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>postgresql-13-dbgsym<span class="w"> </span>postgresql-13-postgis-3-dbgsym
+</pre></div>
+</div>
+<p>And finally:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"select pc_transform(patch, 1) from patchs limit 1"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>valgrind<span class="w"> </span>-s<span class="w"> </span>--track-origins<span class="o">=</span>yes<span class="w"> </span>--leak-check<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--show-leak-kinds<span class="o">=</span>all<span class="w"> </span>--read-var-info<span class="o">=</span>yes<span class="w"> </span>--log-file<span class="o">=</span>/tmp/valgrind.log<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/usr/lib/postgresql/13/bin/postgres<span class="w"> </span>--single<span class="w"> </span>-D<span class="w"> </span>/var/lib/postgresql/13/main<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-c<span class="w"> </span><span class="nv">config_file</span><span class="o">=</span>/etc/postgresql/13/main/postgresql.conf<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>mydatabase
+</pre></div>
+</div>
+<p>Then Valgrind’s report is available in <code class="docutils literal notranslate"><span class="pre">/tmp/valgrind.log</span></code>.</p>
+</section>
+<section id="gdb-interactive-mode">
+<h2>GDB interactive mode<a class="headerlink" href="#gdb-interactive-mode" title="Link to this heading"></a></h2>
+<p>GDB may be attached to a running session for debugging purpose:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>psql<span class="w"> </span>mydatabase
+<span class="go">psql (14.5)</span>
+<span class="go">Type "help" for help.</span>
+
+<span class="go">mydatabase=# select pid from pg_stat_activity where usename = 'pblottiere' and state = 'active';</span>
+<span class="go">  pid</span>
+<span class="go">-------</span>
+<span class="go"> 34699</span>
+<span class="gp gp-VirtualEnv">(1 row)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>gdb<span class="w"> </span>-p<span class="w"> </span><span class="m">34699</span>
+<span class="go">GNU gdb (GDB) 12.1</span>
+<span class="gp gp-VirtualEnv">(gdb)</span>
+</pre></div>
+</div>
+<p>Then you can execute a SQL request in the corresponding session and use GDB as
+usual (step by step, backtrace, …).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials/compression.html" class="btn btn-neutral float-left" title="Schema and compression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="community.html" class="btn btn-neutral float-right" title="Community" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+    <div class="footer">
+        <div class="container">
+            &copy;  2026
+            <a href="https://github.com/pramsey">Paul Ramsey</a>,
+            <a href="http://github.com/pblottiere">Paul Blottiere</a>,
+            <a href="http://github.com/mbredif">Mathieu Brédif</a>,
+            <a href="http://github.com/elemoine">Eric Lemoine</a>,
+            and
+            <a href="https://github.com/pgpointcloud/pointcloud/graphs/contributors">others</a>,
+        </div>
+    </div>
+     
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PcPatch &mdash; pgpointcloud</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=36f53d34"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="WKB" href="wkb.html" />
+    <link rel="prev" title="PcPoint" href="points.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pgPointcloud
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Getting Started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="schema.html">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="points.html">PcPoint</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PcPatch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pc-astext">PC_AsText</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-compress">PC_Compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-explode">PC_Explode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-filterbetween">PC_FilterBetween</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-filterequals">PC_FilterEquals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-filtergreaterthan">PC_FilterGreaterThan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-filterlessthan">PC_FilterLessThan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-intersects">PC_Intersects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-issorted">PC_IsSorted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-makepatch">PC_MakePatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-memsize">PC_MemSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-numpoints">PC_NumPoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-pcid">PC_PCId</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-patch">PC_Patch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-patchavg">PC_PatchAvg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-patchmax">PC_PatchMax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-patchmin">PC_PatchMin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-pointn">PC_PointN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-range">PC_Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-setpcid">PC_SetPCId</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-sort">PC_Sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-summary">PC_Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-transform">PC_Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-uncompress">PC_Uncompress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-union">PC_Union</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wkb.html">WKB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgis.html">PostGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../update.html">Update</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">Community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../copyright.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pgPointcloud</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Functions</a></li>
+      <li class="breadcrumb-item active">PcPatch</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pcpatch">
+<span id="patchs"></span><h1>PcPatch<a class="headerlink" href="#pcpatch" title="Link to this heading"></a></h1>
+<section id="pc-astext">
+<h2>PC_AsText<a class="headerlink" href="#pc-astext" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_AsText(p pcpatch) returns text<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a JSON version of the data in that patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_AsText</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">patches</span> <span class="n">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pts"</span><span class="p">:[</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">126.99</span><span class="p">,</span><span class="mf">45.01</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.98</span><span class="p">,</span><span class="mf">45.02</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.97</span><span class="p">,</span><span class="mf">45.03</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">126.96</span><span class="p">,</span><span class="mf">45.04</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.95</span><span class="p">,</span><span class="mf">45.05</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.94</span><span class="p">,</span><span class="mf">45.06</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">126.93</span><span class="p">,</span><span class="mf">45.07</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.92</span><span class="p">,</span><span class="mf">45.08</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.91</span><span class="p">,</span><span class="mf">45.09</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-compress">
+<h2>PC_Compress<a class="headerlink" href="#pc-compress" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Compress(p pcpatch,global_compression_scheme text,compression_config text) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Compress a patch with a manually specified scheme. The compression_config
+semantic depends on the global compression scheme. Allowed global compression
+schemes are:</p>
+<ul>
+<li><p>auto: determined by pcid</p></li>
+<li><p>laz: no compression config supported</p></li>
+<li><p>dimensional: configuration is a comma-separated list of per-dimension compressions from this list</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>auto: determined automatically from values stats</p></li>
+<li><p>zlib: deflate compression</p></li>
+<li><p>sigbits: significant bits removal</p></li>
+<li><p>rle: run-length encoding</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="pc-explode">
+<h2>PC_Explode<a class="headerlink" href="#pc-explode" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Explode(p pcpatch) returns SetOf[pcpoint]<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Set-returning function, converts patch into result set of one point record for
+each point in the patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_AsText</span><span class="p">(</span><span class="n">PC_Explode</span><span class="p">(</span><span class="n">pa</span><span class="p">)),</span> <span class="nb">id</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+              <span class="n">pc_astext</span>               <span class="o">|</span> <span class="nb">id</span>
+<span class="o">--------------------------------------+----</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.5</span><span class="p">,</span><span class="mf">45.5</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span>   <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.49</span><span class="p">,</span><span class="mf">45.51</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.48</span><span class="p">,</span><span class="mf">45.52</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.47</span><span class="p">,</span><span class="mf">45.53</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.46</span><span class="p">,</span><span class="mf">45.54</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.45</span><span class="p">,</span><span class="mf">45.55</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.44</span><span class="p">,</span><span class="mf">45.56</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.43</span><span class="p">,</span><span class="mf">45.57</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.42</span><span class="p">,</span><span class="mf">45.58</span><span class="p">,</span><span class="mi">58</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.41</span><span class="p">,</span><span class="mf">45.59</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span>  <span class="mi">7</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-filterbetween">
+<h2>PC_FilterBetween<a class="headerlink" href="#pc-filterbetween" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_FilterBetween(p pcpatch, dimname text, float8 value1, float8 value2) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a patch with only points whose values are between (excluding) the
+supplied values for the requested dimension.</p>
+</section>
+<section id="pc-filterequals">
+<h2>PC_FilterEquals<a class="headerlink" href="#pc-filterequals" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_FilterEquals(p pcpatch, dimname text, float8 value) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a patch with only points whose values are the same as the supplied
+values for the requested dimension.</p>
+</section>
+<section id="pc-filtergreaterthan">
+<h2>PC_FilterGreaterThan<a class="headerlink" href="#pc-filtergreaterthan" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_FilterGreaterThan(p pcpatch, dimname text, float8 value) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a patch with only points whose values are greater than the supplied
+value for the requested dimension.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_AsText</span><span class="p">(</span><span class="n">PC_FilterGreaterThan</span><span class="p">(</span><span class="n">pa</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="mf">45.57</span><span class="p">))</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+ <span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pts"</span><span class="p">:[[</span><span class="o">-</span><span class="mf">126.42</span><span class="p">,</span><span class="mf">45.58</span><span class="p">,</span><span class="mi">58</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.41</span><span class="p">,</span><span class="mf">45.59</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">5</span><span class="p">]]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-filterlessthan">
+<h2>PC_FilterLessThan<a class="headerlink" href="#pc-filterlessthan" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_FilterLessThan(p pcpatch, dimname text, float8 value) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a patch with only points whose values are less than the supplied value
+for the requested dimension.</p>
+</section>
+<section id="pc-intersects">
+<h2>PC_Intersects<a class="headerlink" href="#pc-intersects" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Intersects(p1 pcpatch, p2 pcpatch) returns boolean<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns true if the bounds of p1 intersect the bounds of p2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Patch</span> <span class="n">should</span> <span class="n">intersect</span> <span class="n">itself</span>
+<span class="n">SELECT</span> <span class="n">PC_Intersects</span><span class="p">(</span>
+         <span class="s1">'01010000000000000001000000C8CEFFFFF8110000102700000A00'</span><span class="p">::</span><span class="n">pcpatch</span><span class="p">,</span>
+         <span class="s1">'01010000000000000001000000C8CEFFFFF8110000102700000A00'</span><span class="p">::</span><span class="n">pcpatch</span><span class="p">);</span>
+
+<span class="n">t</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-issorted">
+<h2>PC_IsSorted<a class="headerlink" href="#pc-issorted" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_IsSorted(p pcpatch, dimnames text[], strict boolean default true) returns boolean<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Checks whether a pcpatch is sorted lexicographically along the given
+dimensions. The <code class="docutils literal notranslate"><span class="pre">strict</span></code> option further checks that the ordering is strict
+(no duplicates).</p>
+</section>
+<section id="pc-makepatch">
+<h2>PC_MakePatch<a class="headerlink" href="#pc-makepatch" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_MakePatch(pcid integer, vals float8[]) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Given a valid pcid schema number and an array of doubles that matches the
+schema, construct a new pcpatch. Array size must be a multiple of the number of
+dimensions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_AsText</span><span class="p">(</span><span class="n">PC_MakePatch</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">[</span><span class="o">-</span><span class="mf">126.99</span><span class="p">,</span><span class="mf">45.01</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">126.98</span><span class="p">,</span><span class="mf">45.02</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">126.97</span><span class="p">,</span><span class="mf">45.03</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]));</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pts"</span><span class="p">:[</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">126.99</span><span class="p">,</span><span class="mf">45.01</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.98</span><span class="p">,</span><span class="mf">45.02</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mf">126.97</span><span class="p">,</span><span class="mf">45.03</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-memsize">
+<h2>PC_MemSize<a class="headerlink" href="#pc-memsize" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_MemSize(p pcpatch) returns int4<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns the memory size of a pcpatch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_MemSize</span><span class="p">(</span><span class="n">PC_Patch</span><span class="p">(</span><span class="n">PC_MakePoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">[</span><span class="o">-</span><span class="mi">127</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mf">124.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])));</span>
+
+<span class="mi">161</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-numpoints">
+<h2>PC_NumPoints<a class="headerlink" href="#pc-numpoints" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_NumPoints(p pcpatch) returns integer<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns the number of points in this patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_NumPoints</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">patches</span> <span class="n">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="mi">9</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-pcid">
+<h2>PC_PCId<a class="headerlink" href="#pc-pcid" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PCId(p pcpatch) returns integer<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns the pcid schema number of points in this patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PCId</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">patches</span> <span class="n">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-patch">
+<h2>PC_Patch<a class="headerlink" href="#pc-patch" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Patch(pts pcpoint[]) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Aggregate function that collects a result set of pcpoint values into a pcpatch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">patches</span> <span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+<span class="n">SELECT</span> <span class="n">PC_Patch</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">points</span> <span class="n">GROUP</span> <span class="n">BY</span> <span class="nb">id</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-patchavg">
+<h2>PC_PatchAvg<a class="headerlink" href="#pc-patchavg" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchAvg(p pcpatch, dimname text) returns numeric<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Reads the values of the requested dimension for all points in the patch and
+returns the average of those values. Dimension name must exist in the schema.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PatchAvg</span><span class="p">(</span><span class="n">pa</span><span class="p">,</span> <span class="s1">'intensity'</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="mf">5.0000000000000000</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchAvg(p pcpatch) returns pcpoint<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a PcPoint with the average values of each dimension in the patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_AsText</span><span class="p">(</span><span class="n">PC_PatchAvg</span><span class="p">(</span><span class="n">pa</span><span class="p">))</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.46</span><span class="p">,</span><span class="mf">45.54</span><span class="p">,</span><span class="mf">54.5</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-patchmax">
+<h2>PC_PatchMax<a class="headerlink" href="#pc-patchmax" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchMax(p pcpatch, dimname text) returns numeric<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Reads the values of the requested dimension for all points in the patch and
+returns the maximum of those values. Dimension name must exist in the schema.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PatchMax</span><span class="p">(</span><span class="n">pa</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="o">-</span><span class="mf">126.41</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchMax(p pcpatch) returns pcpoint<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a PcPoint with the maximum values of each dimension in the patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PatchMax</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.41</span><span class="p">,</span><span class="mf">45.59</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-patchmin">
+<h2>PC_PatchMin<a class="headerlink" href="#pc-patchmin" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchMin(p pcpatch, dimname text) returns numeric<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Reads the values of the requested dimension for all points in the patch and
+returns the minimum of those values. Dimension name must exist in the schema.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PatchMin</span><span class="p">(</span><span class="n">pa</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="mf">45.5</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PatchMin(p pcpatch) returns pcpoint<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a PcPoint with the minimum values of each dimension in the patch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_PatchMin</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">patches</span> <span class="n">WHERE</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"pt"</span><span class="p">:[</span><span class="o">-</span><span class="mf">126.5</span><span class="p">,</span><span class="mf">45.5</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-pointn">
+<h2>PC_PointN<a class="headerlink" href="#pc-pointn" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_PointN(p pcpatch, n int4) returns pcpoint<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns the n-th point of the patch with 1-based indexing. Negative n counts
+point from the end.</p>
+</section>
+<section id="pc-range">
+<h2>PC_Range<a class="headerlink" href="#pc-range" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Range(p pcpatch, start int4, n int4) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a patch containing n points. These points are selected from the
+start-th point with 1-based indexing.</p>
+</section>
+<section id="pc-setpcid">
+<h2>PC_SetPCId<a class="headerlink" href="#pc-setpcid" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_SetPCId(p pcpatch, pcid int4, def float8 default 0.0) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Sets the schema on a <code class="docutils literal notranslate"><span class="pre">PcPatch</span></code>, given a valid <code class="docutils literal notranslate"><span class="pre">pcid</span></code> schema number.</p>
+<p>For dimensions that are in the “new” schema but not in the “old” schema the
+value <code class="docutils literal notranslate"><span class="pre">def</span></code> is set in the points of the output patch. <code class="docutils literal notranslate"><span class="pre">def</span></code> is optional,
+its default value is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
+</section>
+<section id="pc-sort">
+<h2>PC_Sort<a class="headerlink" href="#pc-sort" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Sort(p pcpatch, dimnames text[]) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a copy of the input patch lexicographically sorted along the given
+dimensions.</p>
+</section>
+<section id="pc-summary">
+<h2>PC_Summary<a class="headerlink" href="#pc-summary" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Summary(p pcpatch) returns text (from 1.1.0)<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a JSON formatted summary of the data in that point.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_Summary</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">patches</span> <span class="n">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="p">{</span><span class="s2">"pcid"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"npts"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="s2">"srid"</span><span class="p">:</span><span class="mi">4326</span><span class="p">,</span> <span class="s2">"compr"</span><span class="p">:</span><span class="s2">"dimensional"</span><span class="p">,</span><span class="s2">"dims"</span><span class="p">:[{</span><span class="s2">"pos"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"X"</span><span class="p">,</span><span class="s2">"size"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"int32_t"</span><span class="p">,</span><span class="s2">"compr"</span><span class="p">:</span><span class="s2">"sigbits"</span><span class="p">,</span><span class="s2">"stats"</span><span class="p">:{</span><span class="s2">"min"</span><span class="p">:</span><span class="o">-</span><span class="mf">126.99</span><span class="p">,</span><span class="s2">"max"</span><span class="p">:</span><span class="o">-</span><span class="mf">126.91</span><span class="p">,</span><span class="s2">"avg"</span><span class="p">:</span><span class="o">-</span><span class="mf">126.95</span><span class="p">}},{</span><span class="s2">"pos"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="s2">"size"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"int32_t"</span><span class="p">,</span><span class="s2">"compr"</span><span class="p">:</span><span class="s2">"sigbits"</span><span class="p">,</span><span class="s2">"stats"</span><span class="p">:{</span><span class="s2">"min"</span><span class="p">:</span><span class="mf">45.01</span><span class="p">,</span><span class="s2">"max"</span><span class="p">:</span><span class="mf">45.09</span><span class="p">,</span><span class="s2">"avg"</span><span class="p">:</span><span class="mf">45.05</span><span class="p">}},{</span><span class="s2">"pos"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Z"</span><span class="p">,</span><span class="s2">"size"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"int32_t"</span><span class="p">,</span><span class="s2">"compr"</span><span class="p">:</span><span class="s2">"sigbits"</span><span class="p">,</span><span class="s2">"stats"</span><span class="p">:{</span><span class="s2">"min"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"max"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="s2">"avg"</span><span class="p">:</span><span class="mi">5</span><span class="p">}},{</span><span class="s2">"pos"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Intensity"</span><span class="p">,</span><span class="s2">"size"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"uint16_t"</span><span class="p">,</span><span class="s2">"compr"</span><span class="p">:</span><span class="s2">"rle"</span><span class="p">,</span><span class="s2">"stats"</span><span class="p">:{</span><span class="s2">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"avg"</span><span class="p">:</span><span class="mi">0</span><span class="p">}}]}</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-transform">
+<h2>PC_Transform<a class="headerlink" href="#pc-transform" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Transform(p pcpatch, pcid int4, def float8 default 0.0) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns a new patch with its data transformed based on the schema whose
+identifier is <code class="docutils literal notranslate"><span class="pre">pcid</span></code>.</p>
+<p>For dimensions that are in the “new” schema but not in the “old” schema the
+value <code class="docutils literal notranslate"><span class="pre">def</span></code> is set in the points of the output patch. <code class="docutils literal notranslate"><span class="pre">def</span></code> is optional,
+its default value is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
+<p>Contrary to <code class="docutils literal notranslate"><span class="pre">PC_SetPCId</span></code>, <code class="docutils literal notranslate"><span class="pre">PC_Transform</span></code> may change (transform) the patch
+data if dimension interpretations, scales or offsets are different in the new
+schema.</p>
+</section>
+<section id="pc-uncompress">
+<h2>PC_Uncompress<a class="headerlink" href="#pc-uncompress" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Uncompress(p pcpatch) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns an uncompressed version of the patch (compression type <code class="docutils literal notranslate"><span class="pre">none</span></code>). In
+order to return an uncompressed patch on the wire, this must be the outer
+function with return type pcpatch in your SQL query. All other functions that
+return pcpatch will compress output to the schema-specified compression before
+returning.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">PC_Uncompress</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">patches</span>
+<span class="n">WHERE</span> <span class="n">PC_NumPoints</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="mi">01010000000000000001000000</span><span class="n">C8CEFFFFF8110000102700000A00</span>
+</pre></div>
+</div>
+</section>
+<section id="pc-union">
+<h2>PC_Union<a class="headerlink" href="#pc-union" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">PC_Union(p pcpatch[]) returns pcpatch<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Aggregate function merges a result set of pcpatch entries into a single pcpatch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Compare</span> <span class="n">npoints</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">patches</span><span class="p">))</span> <span class="n">to</span> <span class="nb">sum</span><span class="p">(</span><span class="n">npoints</span><span class="p">(</span><span class="n">patches</span><span class="p">))</span>
+<span class="n">SELECT</span> <span class="n">PC_NumPoints</span><span class="p">(</span><span class="n">PC_Union</span><span class="p">(</span><span class="n">pa</span><span class="p">))</span> <span class="n">FROM</span> <span class="n">patches</span><span class="p">;</span>
+<span class="n">SELECT</span> <span class="n">Sum</span><span class="p">(</span><span class="n">PC_NumPoints</span><span class="p">(</span><span class="n">pa</span><span class="p">))</span> <span class="n">FROM</span> <span class="n">patches</span><span class="p">;</span>
+
+<span class="mi">100</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="points.html" class="btn btn-neutral float-left" title="PcPoint" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wkb.html" class="btn btn-neutral float-right" title="WKB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+    <div class="footer">
+        <div class="container">
+            &copy;  2026
+            <a href="https://github.com/pramsey">Paul Ramsey</a>,
+            <a href="http://github.com/pblottiere">Paul Blottiere</a>,
+            <a href="http://github.com/mbredif">Mathieu Brédif</a>,
+            <a href="http://github.com/elemoine">Eric Lemoine</a>,
+            and
+            <a href="https://github.com/pgpointcloud/pointcloud/graphs/contributors">others</a>,
+        </div>
+    </div>
+     
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
